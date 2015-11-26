@@ -48,9 +48,10 @@ void push(node_t * head, proc val) {
 		current = current->next;
 	}
 
-	/* now we can add a new variable */
+	// now we can add a new variable
 	current->next = malloc(sizeof(node_t));
 
+	// update pointer
 	current->next->val = val;
 	current->next->next = NULL;
 }
@@ -63,10 +64,10 @@ proc pop(node_t ** head) {
 
 	if (*head == NULL) {
 		proc ret_proc;
-		//strcpy(ret_proc.name, "error");
 		return ret_proc;
 	}
 
+	// take out the head, and change the pointer to the next node
 	next_node = (*head)->next;
 	retval = (*head)->val;
 	free(*head);
