@@ -3,29 +3,37 @@
  *
  * Copyright (C) 2015, <GROUP MEMBERS>
  * All rights reserved.
- * 
+ *
  */
 #ifndef QUEUE_H_
 #define QUEUE_H_
 
-#include "utility.h"
+//#include "utility.h"
 
 // Your linked list structure for your queue
-// typedef ... 
-//  ...
-//  proc process;
-//  ...
-//} node_t; 
+typedef struct {
+	int arrival_time;
+	int priority;
+	int processor_time;
+	int required_memory;
+	int required_printers;
+	int required_scanners;
+	int required_modems;
+	int required_cds;
+} proc;
 
-// Include your relevant FIFO queue functions declarations here they must start 
-// with the extern keyword such as in the following examples:
+// node for the linked list
+typedef struct node {
+	proc val;
+	struct node *next;
+} node_t;
+
 
 // Add a new process to the queue, returns the address of the next node added
 // to the linked list
 
-// extern node_t *push(node_t *tail, proc process);
-
-// extern node_t *pop(node_t *tail);
-
+extern void print_list(node_t * head);
+extern void push(node_t * head, proc val);
+extern proc pop(node_t ** head);
 
 #endif /* QUEUE_H_ */

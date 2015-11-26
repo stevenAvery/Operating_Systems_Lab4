@@ -3,10 +3,12 @@
  *
  * Copyright (C) 2015, <GROUP MEMBERS>
  * All rights reserved.
- * 
+ *
  */
 #ifndef UTILITY_H_
 #define UTILITY_H_
+
+#include "queue.h"
 
 // The amount of available memory
 #define MEMORY 1024
@@ -18,8 +20,19 @@
 //  ...
 // } resources;
 
+int memory[MEMORY];
+typedef struct {
+	int printers[2];
+	int scanners[1];
+	int modems[1];
+	int cd_drives[2];
+	int memory[MEMORY];
+} resources;
 
-// Processes structure containing all of the process details parsed from the 
+
+extern void load_dispatch(char *dispatch_file, node_t *queue);
+
+// Processes structure containing all of the process details parsed from the
 // input file, should also include the memory address (an index) which indicates
 // where in the resources memory array its memory was allocated
 // typedef struct {
@@ -28,7 +41,7 @@
 // } process;
 
 
-// Include your relevant functions declarations here they must start with the 
+// Include your relevant functions declarations here they must start with the
 // extern keyword such as in the following examples:
 
 // Function to allocate a contiguous chunk of memory in your resources structure
@@ -37,7 +50,7 @@
 // extern int alloc_mem(resources res, int size);
 
 // Function to free the allocated contiguous chunk of memory in your resources
-// structure memory array, should take the resource struct, start index, and 
+// structure memory array, should take the resource struct, start index, and
 // size (amount of memory allocated) as arguments
 // extern free_mem(resources res, int index, int size);
 
