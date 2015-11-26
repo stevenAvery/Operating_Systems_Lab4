@@ -1,49 +1,50 @@
 /*
  * Host Dispatcher Shell Project for SOFE 3950U / CSCI 3020U: Operating Systems
  *
- * Copyright (C) 2015, <GROUP MEMBERS>
+ * Copyright (C) 2015, 100493227, 100451291, 100462413, 100522340
  * All rights reserved.
- * 
+ *
  */
 #ifndef UTILITY_H_
 #define UTILITY_H_
 
-// The amount of available memory
-#define MEMORY 1024
+#include "queue.h"
 
-// Resources structure containing integers for each resource constraint and an
-// array of 1024 for the memory
-// typedef struct {
-//  ...
-//  ...
-// } resources;
+// The amount of available resources
+// each is scalable
+#define PRINTERS  2
+#define SCANNERS  1
+#define MODEMS    1
+#define CD_DRIVES 2
+#define MEMORY    1024
 
+// our resources
+typedef struct {
+	int printers[PRINTERS];
+	int scanners[SCANNERS];
+	int modems[MODEMS];
+	int cd_drives[CD_DRIVES];
+	int memory[MEMORY];
+} res;
 
-// Processes structure containing all of the process details parsed from the 
-// input file, should also include the memory address (an index) which indicates
-// where in the resources memory array its memory was allocated
-// typedef struct {
-//  ...
-//  ...
-// } process;
+// checks to see if the is the neccisary space for a resource
+// if there is enough space, it will return the location
+// other wise it will return -1
+extern int check_res(int resource[], int amount);
 
+// returns 1 if there are enough resources available
+// returns 0 if there aren't enough
+extern int res_available(proc process, res resources);
 
-// Include your relevant functions declarations here they must start with the 
-// extern keyword such as in the following examples:
+// allocates the given amount of resource
+// returns start point
+extern int alloc_res(int *resource[], int amount);
 
-// Function to allocate a contiguous chunk of memory in your resources structure
-// memory array, always make sure you leave the last 64 values (64 MB) free, should
-// return the index where the memory was allocated at
-// extern int alloc_mem(resources res, int size);
-
-// Function to free the allocated contiguous chunk of memory in your resources
-// structure memory array, should take the resource struct, start index, and 
-// size (amount of memory allocated) as arguments
-// extern free_mem(resources res, int index, int size);
+// frees the given amount of resource from the starting point
+extern void free_res(int *resource[], int start_point, int amount);
 
 // Function to parse the file and initialize each process structure and add
 // it to your job dispatch list queue (linked list)
-// extern void load_dispatch(char *dispatch_file, node_t *queue);
-
+extern void load_dispatch(char *dispatch_file, node_t *queue);
 
 #endif /* UTILITY_H_ */
