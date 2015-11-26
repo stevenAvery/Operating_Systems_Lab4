@@ -1,7 +1,7 @@
 /*
  * Host Dispatcher Shell Project for SOFE 3950U / CSCI 3020U: Operating Systems
  *
- * Copyright (C) 2015, <GROUP MEMBERS>
+ * Copyright (C) 2015, 100493227, 100451291, 100462413, 100522340
  * All rights reserved.
  *
  */
@@ -10,15 +10,20 @@
 
 #include "queue.h"
 
-// The amount of available memory
-#define MEMORY 1024
+// The amount of available resources
+// each is scalable
+#define PRINTERS  2
+#define SCANNERS  1
+#define MODEMS    1
+#define CD_DRIVES 2
+#define MEMORY    1024
 
 // our resources
 typedef struct {
-	int printers[2];
-	int scanners[1];
-	int modems[1];
-	int cd_drives[2];
+	int printers[PRINTERS];
+	int scanners[SCANNERS];
+	int modems[MODEMS];
+	int cd_drives[CD_DRIVES];
 	int memory[MEMORY];
 } res;
 

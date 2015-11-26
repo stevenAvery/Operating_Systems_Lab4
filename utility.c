@@ -1,16 +1,15 @@
 /*
  * Host Dispatcher Shell Project for SOFE 3950U / CSCI 3020U: Operating Systems
  *
- * Copyright (C) 2015, <GROUP MEMBERS>
+ * Copyright (C) 2015, 100493227, 100451291, 100462413, 100522340
  * All rights reserved.
  *
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "utility.h"
 #include "queue.h"
-
-// Define your utility functions here, you will likely need to add more...
 
 // checks to see if the is the neccisary space for a resource
 // if there is enough space, it will return the location
@@ -49,9 +48,9 @@ int res_available(proc process, res resources) {
 
 // allocates the given amount of resource from the starting point
 int alloc_res(int *resource[], int amount) {
-	int start_point = check_res(resource, amount);
+	int start_point = check_res(*resource, amount);
 	for(int i = start_point; i < start_point+amount; i++) {
-		resource[i] = 1;
+		*resource[i] = 1;
 	}
 	return start_point;
 }
@@ -63,6 +62,7 @@ void free_res(int *resource[], int start_point, int amount) {
 	}
 }
 
+// loads the dispatch list and puts it into a queue
 void load_dispatch(char *dispatch_file, node_t *queue) {
 	static char line[1000] = "";
 	char *token_str;
