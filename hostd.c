@@ -39,13 +39,20 @@ int main(int argc, char *argv[])
 	// Load the dispatchlist
 	// Add each process structure instance to the job dispatch list queue
 	node_t *tmp_head = NULL;
-	load_dispatch("dispatchlist", tmp_head);
+	load_dispatch("dispatchlist", &tmp_head);
+	printf("\npriority queue %d\n", i);
+	print_list(tmp_head);
 
 	// Iterate through each item in the job dispatch list, add each process
 	// to the appropriate queues
 	while(tmp_head != NULL) {
 		proc current = pop(&tmp_head);
-		push(head_dispatch_queues[current.priority], current);
+		push((head_dispatch_queues[current.priority]), current);
+	}
+
+	for (int i = 0; i < 4; i++) {
+		printf("\npriority queue %d\n", i);
+		print_list((head_dispatch_queues[i]));
 	}
 
 	// go through the queues from highest to lowest priority
@@ -53,7 +60,7 @@ int main(int argc, char *argv[])
 		// while this queue isn't empty
 		// it will keep pushing resources to the end of the queue until this on is completely empty
 		while(head_dispatch_queues[i] != NULL) {
-			proc current = pop(&head_dispatch_queues[i]);
+			proc current = pop(head_dispatch_queues[i]); // TODO maybe need &&
 			if(res_available(current, resources)) {
 				// Allocate the resources for each process before it's executed
 				int printer_start = alloc_res(&resources.printers,  current.required_printers);
@@ -62,12 +69,10 @@ int main(int argc, char *argv[])
 				int cd_start      = alloc_res(&resources.cd_drives, current.required_cds);
 				int memory_start  = alloc_res(&resources.memory,    current.required_memory);
 
-
-				// TODO Execute the process binary using fork and exec
-
-				// TODO Perform the appropriate signal handling
-
+				// Execute the process binary using fork and exec
+				// Perform the appropriate signal handling
 				// decrease the current.processor_time by the amount of time this process ran
+				run_for_time(&current);
 
 				// Deallocate the resources
 				free_res(&resources.printers,  printer_start, current.required_printers);
@@ -79,7 +84,7 @@ int main(int argc, char *argv[])
 
 			// if the process needs more time to run, add it back to the queue
 			if(current.processor_time > 0) {
-				push(head_dispatch_queues[i], current);
+				push(&head_dispatch_queues[i], current);
 			}
 		}
 	}

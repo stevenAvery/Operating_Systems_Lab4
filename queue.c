@@ -16,9 +16,9 @@ void print_list(node_t * head) {
 	node_t * current = head;
 
 	printf("%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s\n",
-		"arrival_time",
+		"arrival",
 		"priority",
-		"processor_time",
+		"proc_time",
 		"#memory",
 		"#printers",
 		"#scanners",
@@ -36,6 +36,7 @@ void print_list(node_t * head) {
 			current->val.required_modems,
 			current->val.required_cds
 		);
+
 		current = current->next;
 	}
 }
