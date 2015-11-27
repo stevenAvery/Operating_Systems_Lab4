@@ -20,6 +20,8 @@ typedef struct {
 	int required_scanners;
 	int required_modems;
 	int required_cds;
+	int suspended;
+	int pid;
 } proc;
 
 // node for the linked list

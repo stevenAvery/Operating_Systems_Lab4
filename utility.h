@@ -45,6 +45,9 @@ extern void free_res(int *resource[], int start_point, int amount);
 
 // Function to parse the file and initialize each process structure and add
 // it to your job dispatch list queue (linked list)
-extern void load_dispatch(char *dispatch_file, node_t *queue);
+extern void load_dispatch(char *dispatch_file, node_t **queue);
+
+// runs the process for the appropriate amount of time
+extern void run_for_time(proc *process);
 
 #endif /* UTILITY_H_ */
