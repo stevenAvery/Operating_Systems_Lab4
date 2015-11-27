@@ -1,7 +1,7 @@
 /*
  * Host Dispatcher Shell Project for SOFE 3950U / CSCI 3020U: Operating Systems
  *
- * Copyright (C) 2015, 100493227, 100451291, 100462413, 100522340
+ * Copyright (C) 2015, 100493227, 100451291, 100462413, 100522340, 100523158
  * All rights reserved.
  *
  */
@@ -18,7 +18,7 @@
 // checks to see if the is the neccisary space for a resource
 // if there is enough space, it will return the location
 // other wise it will return -1
-int check_res(int resource[], int amount) {
+int check_res(int *resource, int amount) {
 	int start_point = 0;
 	int chain_amount = 0;
 	// check the entire resource array
@@ -52,7 +52,7 @@ int res_available(proc process, res resources) {
 }
 
 // allocates the given amount of resource from the starting point
-int alloc_res(int *resource[], int amount) {
+int alloc_res(int **resource, int amount) {
 	int start_point = check_res(*resource, amount);
 	for(int i = start_point; i < start_point+amount; i++) {
 		*resource[i] = 1;
@@ -61,7 +61,7 @@ int alloc_res(int *resource[], int amount) {
 }
 
 // frees the given amount of resource from the starting point
-void free_res(int *resource[], int start_point, int amount) {
+void free_res(int **resource, int start_point, int amount) {
 	for(int i = start_point; i < start_point+amount; i++) {
 		resource[i] = 0;
 	}
@@ -155,7 +155,7 @@ void run_for_time(proc *process) {
 			wait(&status);
 
 			// update our process
-			process->suspended == 1;
+			process->suspended = 1;
 			process->processor_time--;
 		}
 
